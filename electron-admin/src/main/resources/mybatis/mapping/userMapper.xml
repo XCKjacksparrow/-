@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.bestrivenlf.electronadmin.dao.user.UserDao">
+
+    <select id="getUserByUserName" resultType="cn.bestrivenlf.electronadmin.entity.User" parameterType="String">
+        select * from user_tb where username = #{userName}
+    </select>
+    <select id="getNameByIp" resultType="java.lang.String" parameterType="String">
+        select username from user_tb where ip = #{ip}
+    </select>
+    <update id="setUserIp" parameterType="java.util.List">
+        update user_tb set ip = #{userIp} where username = #{userName}
+    </update>
+    <update id="deleteIp" parameterType="java.util.List">
+        update user_tb set ip = '' where ip = #{userIp}
+    </update>
+
+    <select id="getuserList" resultType="cn.bestrivenlf.electronadmin.entity.User">
+        select * from user_tb
+    </select>
+
+    <select id="save" parameterType="cn.bestrivenlf.electronadmin.entity.User">
+        INSERT INTO user_tb (id,userName,password,role) VALUES(#{user.id},#{user.userName},#{user.password},#{user.role})
+    </select>
+
+
+    <select id="getonlineuserlist" resultType="cn.bestrivenlf.electronadmin.entity.User">
+        select * from user_tb where ip != '' and role ="student"
+    </select>
+
+
+    <select id="getonlineteacherlist" resultType="cn.bestrivenlf.electronadmin.entity.User">
+        select * from user_tb where ip != '' and role ="teacher"
+    </select>
+</mapper>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>electron-vue-admin</title>
+    <script src="https://cdn.jsdelivr.net/gh/xiangyuecn/Recorder@latest/src/recorder-core.js"></script>
+
+    <!-- 【1.2】引入相应格式支持文件；如果需要多个格式支持，把这些格式的编码引擎js文件放到后面统统加载进来即可 -->
+    <script src="https://cdn.jsdelivr.net/gh/xiangyuecn/Recorder@latest/src/engine/mp3.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/xiangyuecn/Recorder@latest/src/engine/mp3-engine.js"></script>
+
+    <% if (htmlWebpackPlugin.options.nodeModules) { %>
+      <!-- Add `node_modules/` to global paths so `require` works properly in development -->
+      <script>
+        require('module').globalPaths.push('<%= htmlWebpackPlugin.options.nodeModules.replace(/\\/g, '\\\\') %>')
+      </script>
+    <% } %>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- Set `__static` path to static files in production -->
+    <script>
+      if (process.env.NODE_ENV !== 'development') window.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
+    </script>
+
+    <!-- webpack builds are automatically injected -->
+  </body>
+</html>
